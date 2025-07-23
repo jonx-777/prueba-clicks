@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
+    background-color: #000000; /* Fondo negro */
+    font-family: 'Arial Black', Gadget, sans-serif; /* Fuente impactante para el mensaje */
+    cursor: pointer; /* Para indicar que es interactivo */
+}
+
+#heart-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: auto; /* Asegura que el contenedor reciba clics */
+}
+
+/* --- Estilos para el mensaje "Te quiero loquita" --- */
+#message-container {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para el centro exacto */
+    z-index: 10; /* Asegura que esté por encima de los corazones */
+    pointer-events: none; /* No interactúa con clics */
+    text-align: center;
+}
+
+#love-message {
+    font-size: 5vw; /* ¡Más pequeño! Tamaño de fuente responsivo */
+    color: #FF69B4; /* Un rosa cálido para el texto */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    /* Quitamos la animación de pulsación y text-shadow */
+}
+
+
+.heart-particle {
+    position: absolute;
+    font-size: 2vw; /* Tamaño de partícula relativo */
+    color: #ff1900; /* Rojo clásico para los corazones */
+    opacity: 0;
+    user-select: none;
+    pointer-events: none; /* Evita que los corazones interfieran con clics futuros */
+    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+    will-change: transform, opacity; /* Sugerencia al navegador para optimizar animaciones */
+
+    /* Quitamos el efecto neón (text-shadow) */
+}
+
+/* Animación para el corazón del "destello" (un solo corazón que se desvanece en su lugar) */
+@keyframes single-sparkle-heart {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg); /* Empieza muy pequeño en el centro del clic */
+        opacity: 0; /* Empieza invisible */
+    }
+    20% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(0deg); /* Crece un poco más grande */
+        opacity: 1; /* Totalmente visible */
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg); /* Se desvanece y se encoge un poco */
+        opacity: 0; /* Desaparece */
+    }
+}
+
+/* Animación para la lluvia de corazones */
+@keyframes heart-fall {
+    0% {
+        transform: translateY(-10vh) scale(var(--scale)) rotate(var(--rotate));
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) scale(var(--scale)) rotate(var(--rotate));
+        opacity: 0;
+    }
+}
+
+
+/* Media Queries para ajustar el tamaño de fuente si es necesario */
+@media (max-width: 768px) {
+    #love-message {
+        font-size: 8vw; /* Más grande en móviles */
+    }
+    .heart-particle {
+        font-size: 6vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    #love-message {
+        font-size: 60px; /* Tamaño fijo para pantallas muy grandes */
+    }
+    .heart-particle {
+        font-size: 54px;
+    }
+}
